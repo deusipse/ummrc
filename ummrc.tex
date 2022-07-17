@@ -1,6 +1,10 @@
 \documentclass{article}
 
 \usepackage{amsmath}
+\usepackage{minted}
+\usepackage{fontspec}
+\setmonofont{Fira Code}
+\setminted{fontsize=\footnotesize, style = friendly, linenos}
 
 \title{UMMC}
 
@@ -10,5 +14,7 @@
 \maketitle
 
 Hello, world!
+\newpage
+\inputminted{cpp}{ummrc.cpp}
 
 \end{document}
