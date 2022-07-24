@@ -1,0 +1,12 @@
+\begin{theorem}\label{thm:2}
+  The average number of particles after $n$ shots is \[
+  0.75n + 0.25
+  .\]
+\end{theorem}
+\begin{proof}
+  Let the average number of particles after $n$ shots be $T_n$. Obviously, $T_1 = 1$. Next, consider the chance that after firing a shot, the number of particles \emph{doesn't} decrease. This occurs only in the event that the last particle in the tube is an X-particle, and when the particle emitted is also an X-particle. Since both events have a probability $0.5$, the probability that both occur is simply $0.25$. Hence, the probability that the number of particles \emph{does} increase after firing a shot is $1 - 0.25 = 0.75$. Thus the expected number of particles increases by $0.75$ after each shot, giving us the recursion \[
+    T_{n+1} = T_{n} + 0.75
+  .\] Since $T_1 = 1$, we arrive at the formula \[
+    T_{n} = 0.75n + 0.25 \tag*{\qedhere}
+  .\] 
+\end{proof}

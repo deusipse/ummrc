@@ -1,152 +1,15 @@
 \documentclass{article}
 
-\usepackage{mathtools}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{parskip}
-\usepackage{cancel}
-\usepackage{minted}
-\usepackage{fontspec}
-\usepackage[colorlinks]{hyperref}
-\setmonofont{Fira Code}
-\setminted{fontsize=\footnotesize, style = friendly, linenos}
-
-\newtheorem{theorem}{Theorem}
-\newtheorem{claim}{Claim}[theorem]
-\DeclareMathOperator{\prob}{Pr}
-
-\title{UMMC}
-
-\author{Jiamu Li \& Frank Tang \& Edward Wang}
+\input{preamble.tex}
 
 \begin{document}
 \maketitle
+\tableofcontents
+\clearpage
 
-\section{Question 1}
-
-\begin{theorem}
-  The probability that no two X-particles are next to each other after $n$ shots is given by \[
-    \frac{F_{n+2}}{2^n},
-\] where $F_n$ is the $n$th Fibonacci number.
-\end{theorem}
-\begin{proof}
-The probability we require can be calculated by dividing the total number of ways to arrange the contents of the tube such that there are no consecutive X-particles, by the total number of arrangements of the tube. That is to say:
-\begin{equation*}
-  \prob(\text{No consecutive X-particles}) = \frac{\# \text{Arrangements w/o consecutive X-particles}}{\# \text{Total arrangements}}
-\end{equation*}
-\begin{claim}
-  The number of arrangements with no consecutive X-particles is \[
-    \sum_{k=0}^n \binom{n-k+1}{k}.
-  \]
-\end{claim}
-\begin{proof}
-  Consider a tube with $n$ particles in it. Let the number of X-particles be equal to $k$, and the number of Y-particles be equal to $n-k$. Consider the tube without the X-particles, consisting solely of Y-particles in a line:
-  \begin{equation}
-    \underbrace{\text{YY\dots YY}}_{n-k}
-  \end{equation}
-  Now consider the `gaps' between these Y-particles, indicated by a bar (|):
-  \begin{equation}
-    \text{|Y|Y|\dots |Y|Y|}
-  \end{equation}
-  Notice that there are exactly $n-k+1$ `gaps'. Clearly, if we were to only place X-particles in the gaps, then there would never be any consecutive X-particles. This can be done in a total of \[
-    \binom{n-k+1}{k}
-    \] ways. However, we must consider this for any number of X-particles $k$, so we arrive at the sum \[
-    \#\text{Arrangements with no consecutive X-particles} = \sum_{k=0}^n \binom{n-k+1}{k}. \qedhere
-  \]
-\end{proof}
-\begin{claim}
-  We claim that \[
-    \sum_{k=0}^n \binom{n-k+1}{k} = F_{n+2},
-  \] where $F_n$ is the $n$th Fibonnaci number.
-\end{claim}
-\begin{proof}
-  Recall that the Fibonnaci numbers are defined as follows:
-  \begin{align*}
-    &F_0 = 0 \\
-    &F_1 = 1 \\
-    &F_n = F_{n-1} + F_{n-2} \qquad n > 1
-  \end{align*}
-  Let $f(x)\coloneqq \sum_{k=0}^x \binom{x-k+1}{k}$. It is sufficient to prove that $f(1) = F_{3} = 2$, $f(2) = F_{4} = 3$, and that $f(n) = f(n-1) + f(n-2)$, which would then imply the result by definition of the Fibonnaci numbers.
-
-  It is obvious that $f(1) = \binom{2}{0} + \binom{1}{1} = 2$, which is equal to $F_{3}$. Next, $f(2) = \binom{3}{0} + \binom{2}{1} + \binom{1}{2} = 3$. Notice that we define $\binom{n}{k} = 0$ when $n < k$, as it is impossible to choose $k$ things from a set with elements less than $k$.
-
-  We proceed to prove that $f(n) = f(n-1) + f(n-2)$, where $n > 2$.
-
-  Using the fact that $\binom{n}{0} = 1$, we rewrite $f(n)$ using Pascal's identity and linearity as \[
-    f(n) = 1 + \sum_{k=1}^n \binom{n-k+1}{k} = 1 + \sum_{k=1}^n \binom{n-k}{k} + \sum_{k=1}^n \binom{n-k}{k-1}.
-  \] Next, we simplify, getting
-  \begin{align*}
-    f(n) &= \sum_{k=0}^n \binom{n - k}{k} + \sum_{k=1}^n \binom{n-k}{k-1} \\
-         &= \sum_{k=0}^{n-1} \binom{n-k}{k} + \cancel{\binom{n-n}{k}} + \sum_{k=1}^n \binom{n-k}{k-1} \\
-         &= \sum_{k=0}^{n-1} \binom{n-k}{k} + \sum_{k=0}^{n-1} \binom{n-k-1}{k} \\
-         &= \sum_{k=0}^{n-1} \binom{n-k}{k} + \sum_{k=0}^{n-2} \binom{n-k-1}{k} + \cancel{\binom{n-(n-1)-1}{n-1}} \\
-         &= f(n-1) + f(n-2). \qedhere
-  \end{align*}
-\end{proof}
-\begin{claim}
-  The number of total arrangements of a tube with $n$ particles is \[2^n.\]
-\end{claim}
-\begin{proof}
-  Each particle in the tube can be either an X-particle or a Y-particle, meaning there are 2 choices for each of the $n$ particles. Hence, there are a total of $2^n$ arrangements.
-\end{proof}
-Hence by dividing the number of arrangements where there are no consecutive X-particles by the total number of arrangements, we arrive at the formula \[\frac{F_{n+2}}{2^n}\] which gives the desired probability.
-\end{proof}
-
-\begin{theorem}\label{thm:2}
-  The average number of particles after $n$ shots is \[
-  0.75n + 0.25
-  .\]
-\end{theorem}
-\begin{proof}
-  Let the average number of particles after $n$ shots be $T_n$. Obviously, $T_1 = 1$. Next, consider the chance that after firing a shot, the number of particles \emph{doesn't} decrease. This occurs only in the event that the last particle in the tube is an X-particle, and when the particle emitted is also an X-particle. Since both events have a probability $0.5$, the probability that both occur is simply $0.25$. Hence, the probability that the number of particles \emph{does} increase after firing a shot is $1 - 0.25 = 0.75$. Thus the expected number of particles increases by $0.75$ after each shot, giving us the recursion \[
-    T_{n+1} = T_{n} + 0.75
-  .\] Since $T_1 = 1$, we arrive at the formula \[
-    T_{n} = 0.75n + 0.25 \tag*{\qedhere}
-  .\] 
-\end{proof}
-\begin{theorem}
-  The limiting ratio of X-particles to total particles in the tube, where the probability of emitting an X-particle is $p \in (0, 1)$, as the number of shots approaches infinity is \[
-  \frac{p}{1+p}
-  .\]
-\end{theorem}
-\begin{proof}
-  We use similar logic as done in Theorem~\ref{thm:2} to arrive at a formula for the expected number of particles after $n$ shots when the probability is $p$.
-  \begin{claim}
-    The average number of particles after $n$ shots when the probability of emitting an X-particle is $p \in (0, 1)$ is \[
-      (1-p^2)n + p^2
-    .\] 
-  \end{claim}
-  \begin{proof}
-    Again, let the average number of particles after $n$ shots be $T_n$. The number of particles \emph{doesn't} increase when firing an X-particle and the last particle is also an X-particle, which has a probabilty of $p^2$ of happening. Hence, the probability that the number of parrticles \emph{does} increase is $1-p^2$, meaning that the expected number of particles increases by $1-p^2$ after each shot, and thus we obtain \[
-      T_{n+1} = T_{n} + (1-p^2)
-    .\] Since $T_1 = 1$, the formula for $T_{n}$ is \[
-      T_{n} = (1-p^2)n + p^2 \tag*{\qedhere}
-    .\] 
-  \end{proof}
-  We can now find the expected number of X-particles in the tube. Since the expected number of Y-particles in the tube is simply $(1 - p)n$, because the probability of emitting a Y-particle is $(1-p)$ at each shot, the expected number of X-particles is 
-  \begin{align*}
-    \#\text{X-particles} &= \#\text{Total particles} - \#\text{Y-particles} \\
-                         &= T_n - (1-p)n \\
-                         &= (1-p^2)n + p^2 - (1-p)n.
-  \end{align*}
-  We then divide this by the total number of particles to obtain the desired proportion and then take the limit as $n \to \infty$, getting 
-  \begin{equation*}
-    \lim_{n \to \infty} \frac{(1-p^2)n + p^2 - (1-p)n}{(1-p^2)n + p^2} = \lim_{n \to \infty} \frac{(1-p^2) + \frac{p^2}{n} - (1-p)}{(1-p^2) + \frac{p^2}{n}}
-  \end{equation*}
-  By the algebraic limit theorem, the terms with a denominator of $n$ become neglibibly small, and so we obtain 
-  \begin{align*}
-    \lim_{n \to \infty} \frac{(1-p^2) + 0 - (1-p)}{(1-p^2) + 0} &= \lim_{n \to \infty} \frac{p - p^2}{1 - p^2} \\
-                                                                &= \lim_{n \to \infty} \frac{p(1 - p)}{(1+p)(1-p)} \\
-                                                                &= \lim_{n \to \infty} \frac{p}{1-p}
-  \end{align*}
-  Since the limit no longer has any terms containing $n$, we can remove the limit, getting the final result \[
-    \frac{p}{1-p} \tag*{\qedhere}
-  .\] 
-\end{proof}
-
-
-
-
+\include{part1}
+\include{part2}
+\include{part3}
 
 \newpage
 \inputminted{cpp}{ummrc.cpp}
