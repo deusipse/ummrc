@@ -64,16 +64,16 @@ The probability we require can be calculated by dividing the total number of way
         pair A = (-i, -i*sqrt(3));
         pair B = (3, sqrt(3));
         path idk = A -- (A + 0.5*i*B) + 0.5*B;
-        draw(L = Label(string(fib(i+1)), position = EndPoint), idk, blue);
+        draw(L = Label(string(fib(i+1)), position = EndPoint), idk, blue+opacity(0.4));
       }
 
       for (int i = 0; i < floor(rows/2)+1; ++i) {
         pair A = (-rows, -rows*sqrt(3));
         pair B = (A + i*(3, sqrt(3)));
         if (i != 0)
-        draw(B -- B + 0.75*(-1, sqrt(3)), red);
+        draw(B + 0.25*(-1, sqrt(3)) -- B + 0.75*(-1, sqrt(3)), red+opacity(0.8));
         if (i != floor(rows/2))
-        draw(B -- B + 0.75*(1, sqrt(3)), red);
+        draw(B + 0.25*(1, sqrt(3)) -- B + 0.75*(1, sqrt(3)), red+opacity(0.8));
       }
 
       for (int i = 0; i <= rows; ++i) {
@@ -81,7 +81,6 @@ The probability we require can be calculated by dividing the total number of way
           label(string(choose(i, j)), (j*2 - i, -i*sqrt(3)));
         }
       }
-
     \end{asy}
     \caption{}
     \label{fig:1}
