@@ -43,7 +43,7 @@ bool check_consec_x(string tube) {
   return 1;
 }
 
-double prob_no_two_consec_after_n(int n, int runs) { // Q1
+double prob_no_two_consec_after_n(int n, int runs) {
   int count = 0;
   for (int i = 0; i < runs; i++) {
     if (check_consec_x(gen_tube(n, 0.5)))
@@ -52,7 +52,7 @@ double prob_no_two_consec_after_n(int n, int runs) { // Q1
   return double(count) / runs;
 }
 
-double average_len_after_n(int n, int runs) { // Q2
+double average_len_after_n(int n, int runs) {
   long long count = 0;
   for (int i = 0; i < runs; i++) {
     count += annihilate(gen_tube(n, 0.5)).length();
