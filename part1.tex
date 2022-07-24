@@ -40,6 +40,53 @@ The probability we require can be calculated by dividing the total number of way
   \] where $F_n$ is the $n$th Fibonnaci number.
 \end{claim}
 \begin{proof}
+  Figure~\ref{fig:1} showcases a way to obtain the identity from Pascal's triangle. We will present an algebraic proof below.
+  \begin{figure}
+    \centering
+    \begin{asy}
+      unitsize(0.5cm);
+
+      int fib(int n) {
+        if (n == 0) 
+        return 0;
+        else if (n == 1) 
+        return 1;
+        int fibs[] = {0, 1};
+        while (fibs.length <= n) {
+          fibs.push(fibs[fibs.length - 1] + fibs[fibs.length - 2]);
+        }
+        return fibs[fibs.length - 1];
+      }
+
+      int rows = 6;
+
+      for (int i = 0; i <= rows; ++i) {
+        pair A = (-i, -i*sqrt(3));
+        pair B = (3, sqrt(3));
+        path idk = A -- (A + 0.5*i*B) + 0.5*B;
+        draw(L = Label(string(fib(i+1)), position = EndPoint), idk, blue);
+      }
+
+      for (int i = 0; i < floor(rows/2)+1; ++i) {
+        pair A = (-rows, -rows*sqrt(3));
+        pair B = (A + i*(3, sqrt(3)));
+        if (i != 0)
+        draw(B -- B + 0.75*(-1, sqrt(3)), red);
+        if (i != floor(rows/2))
+        draw(B -- B + 0.75*(1, sqrt(3)), red);
+      }
+
+      for (int i = 0; i <= rows; ++i) {
+        for (int j = 0; j <= i; ++j) {
+          label(string(choose(i, j)), (j*2 - i, -i*sqrt(3)));
+        }
+      }
+
+    \end{asy}
+    \caption{}
+    \label{fig:1}
+  \end{figure}
+
   Recall that the Fibonnaci numbers are defined as follows:
   \begin{align*}
     &F_0 = 0 \\
@@ -57,11 +104,12 @@ The probability we require can be calculated by dividing the total number of way
   \] Next, we simplify, getting
   \begin{align*}
     f(n) &= \sum_{k=0}^n \binom{n - k}{k} + \sum_{k=1}^n \binom{n-k}{k-1} \\
-         &= \sum_{k=0}^{n-1} \binom{n-k}{k} + \cancel{\binom{n-n}{k}} + \sum_{k=1}^n \binom{n-k}{k-1} \\
-         &= \sum_{k=0}^{n-1} \binom{n-k}{k} + \sum_{k=0}^{n-1} \binom{n-k-1}{k} \\
-         &= \sum_{k=0}^{n-1} \binom{n-k}{k} + \sum_{k=0}^{n-2} \binom{n-k-1}{k} + \cancel{\binom{n-(n-1)-1}{n-1}} \\
-         &= f(n-1) + f(n-2). \qedhere
+         &= \sum_{k=0}^{n-1} \binom{n-k}{k} + \binom{n-n}{k} + \sum_{k=1}^n \binom{n-k}{k-1} \\
+         &= \sum_{k=0}^{n-1} \binom{n-k}{k} + 0 + \sum_{k=0}^{n-1} \binom{n-k-1}{k} \\
+         &= \sum_{k=0}^{n-1} \binom{n-k}{k} + \sum_{k=0}^{n-2} \binom{n-k-1}{k} + \binom{n-(n-1)-1}{n-1} \\
+         &= f(n-1) + f(n-2) + 0.
   \end{align*}
+  Hence $f(n)$ must be equivalent to $F_{n+2}$.
 \end{proof}
 \begin{claim}
   The number of total arrangements of a tube with $n$ particles is \[2^n.\]
@@ -71,3 +119,4 @@ The probability we require can be calculated by dividing the total number of way
 \end{proof}
 Hence by dividing the number of arrangements where there are no consecutive X-particles by the total number of arrangements, we arrive at the formula \[\frac{F_{n+2}}{2^n}\] which gives the desired probability.
 \end{proof}
+
