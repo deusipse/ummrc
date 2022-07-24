@@ -8,18 +8,41 @@
 \usepackage[scaled=.95, type1]{cabin}
 \usepackage[T1]{fontenc}
 \usepackage[libertine, vvarbb]{newtxmath}
+\usepackage{microtype}
 \usepackage[sc]{titlesec}
 
 \usepackage{minted}
 \usepackage{FiraMono}
-\usepackage[colorlinks]{hyperref}
+\usepackage[usenames, svgnames, dvipsnames, table]{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks,
+  linkcolor={red!50!black},
+  citecolor={green!50!black},
+  urlcolor={blue!80!black}
+}
 \setminted{fontsize=\footnotesize, style = friendly, linenos}
 
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{25pt}
+\fancyhead[R]{\scshape \nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+\fancyfoot[R]{J. Li, F. Tang, E. Wang}
+\renewcommand{\footrulewidth}{1pt}
+\fancypagestyle{plain}{
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyhf{}
+}
+
 \newtheorem{theorem}{\scshape Theorem}
+\newtheorem{problem}{\scshape Question}
 \newtheorem{claim}{\scshape Claim}[theorem]
 \DeclareMathOperator{\prob}{Pr}
 
-\title{\scshape {\Huge UMMC} \\[1em] Problem 8}
+\title{\scshape {\Huge UMMC} \\[1em] Question 8}
 
 \author{\scshape Jiamu Li \& Frank Tang \& Edward Wang}
 
