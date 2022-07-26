@@ -2,7 +2,9 @@ A particle generator is emitting two types of particles (called X and Y) into a 
 
 \section{Problem 1}
 
-What is the probability that no two X-particles are next to each other?
+\begin{itemize}
+  \item What is the probability that no two X-particles are next to each other?
+\end{itemize}
 
 \begin{theorem}
   The probability that no two X-particles are next to each other after $n$ shots is given by \[
@@ -10,7 +12,7 @@ What is the probability that no two X-particles are next to each other?
 \] where $F_n$ is the $n$th Fibonacci number.
 \end{theorem}
 \begin{proof}
-The probability we require can be calculated by dividing the total number of ways to arrange the contents of the tube such that there are no consecutive X-particles, by the total number of arrangements of the tube. That is to say:
+The probability we require can be calculated by dividing the total number of ways to arrange the contents of the tube such that there are no consecutive X-particles, by the total number of arrangements of the particles. That is to say:
 \begin{equation*}
   \prob(\text{No consecutive X-particles}) = \frac{\# \text{Arrangements w/o consecutive X-particles}}{\# \text{Total arrangements}}
 \end{equation*}
@@ -20,7 +22,7 @@ The probability we require can be calculated by dividing the total number of way
   \]
 \end{claim}
 \begin{proof}
-  Consider a tube with $n$ particles in it. Let the number of X-particles be equal to $k$, and the number of Y-particles be equal to $n-k$. Consider the tube without the X-particles, consisting solely of Y-particles in a line:
+  Consider a tube with $n$ particles in it. Let the number of X-particles be equal to $k$, so that the number of Y-particles is $n-k$. Consider the tube without the X-particles, consisting solely of Y-particles in a line:
   \begin{equation}
     \underbrace{\text{YY\dots YY}}_{n-k}
   \end{equation}
@@ -35,13 +37,13 @@ The probability we require can be calculated by dividing the total number of way
   \]
 \end{proof}
 \begin{claim}
-  We claim that \[
+  \[
     \sum_{k=0}^n \binom{n-k+1}{k} = F_{n+2},
   \] where $F_n$ is the $n$th Fibonnaci number.
 \end{claim}
 \begin{proof}
   Figure~\ref{fig:1} showcases a way to obtain the identity from Pascal's triangle. We will present an algebraic proof below.
-  \begin{figure}
+  \begin{figure}[H]
     \centering
     \begin{asy}
       unitsize(0.5cm);
@@ -82,23 +84,21 @@ The probability we require can be calculated by dividing the total number of way
         }
       }
     \end{asy}
-    \caption{}
+    \caption{Each number in the row is the sum of the the numbers in the previous two rows.}
     \label{fig:1}
   \end{figure}
 
   Recall that the Fibonnaci numbers are defined as follows:
   \begin{align*}
-    &F_0 = 0 \\
-    &F_1 = 1 \\
-    &F_n = F_{n-1} + F_{n-2} \qquad n > 1
+    &F_0 = 0, \\
+    &F_1 = 1, \\
+    &F_n = F_{n-1} + F_{n-2}. \tag{n > 1}
   \end{align*}
-  Let $f(x)\coloneqq \sum_{k=0}^x \binom{x-k+1}{k}$. It is sufficient to prove that $f(1) = F_{3} = 2$, $f(2) = F_{4} = 3$, and that $f(n) = f(n-1) + f(n-2)$, which would then imply the result by definition of the Fibonnaci numbers.
+  We will define a function $f(n) = \sum_{k=0}^n \binom{n-k+1}{n}$. It is sufficient to prove that $f(1) = F_{3} = 2$, $f(2) = F_{4} = 3$, and that $f(n) = f(n-1) + f(n-2)$, which would then imply the result by definition of the Fibonnaci numbers.
 
   It is obvious that $f(1) = \binom{2}{0} + \binom{1}{1} = 2$, which is equal to $F_{3}$. Next, $f(2) = \binom{3}{0} + \binom{2}{1} + \binom{1}{2} = 3$. Notice that we define $\binom{n}{k} = 0$ when $n < k$, as it is impossible to choose $k$ things from a set with elements less than $k$.
 
-  We proceed to prove that $f(n) = f(n-1) + f(n-2)$, where $n > 2$.
-
-  Using the fact that $\binom{n}{0} = 1$, we rewrite $f(n)$ using Pascal's identity and linearity as \[
+  We proceed to prove that $f(n) = f(n-1) + f(n-2)$, where $n > 2$. Using the fact that $\binom{n}{0} = 1$, we rewrite $f(n)$ using Pascal's identity and linearity as \[
     f(n) = 1 + \sum_{k=1}^n \binom{n-k+1}{k} = 1 + \sum_{k=1}^n \binom{n-k}{k} + \sum_{k=1}^n \binom{n-k}{k-1}.
   \] Next, we simplify, getting
   \begin{align*}

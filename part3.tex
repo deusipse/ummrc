@@ -1,47 +1,45 @@
 \section{Problem 3}
 
 Suppose that at each shot, an X-particle is emitted with probability $p \in (0, 1)$.
+\begin{itemize}
 
-Under the same assumption as above, when $n$ is very large, do you think the proportion of X-particles in the tube will eventually stabilise at a certain number? Why/why not?
-
-If so, can you compute this number explicitly?
+  \item Under the same assumption as above, when $n$ is very large, do you think the proportion of X-particles in the tube will eventually stabilise at a certain number? Why/why not?
+  \item If so, can you compute this number explicitly?
+\end{itemize}
 
 \begin{theorem}
-  The limiting ratio of X-particles to total particles in the tube, where the probability of emitting an X-particle is $p \in (0, 1)$, as the number of shots approaches infinity is \[
+  Suppose the probability of emitting an X-partical is $p\in(0,1)$. The limiting ratio of X-particles in the tube, as the number of shots approaches infinity, is \[
   \frac{p}{1+p}
   .\]
 \end{theorem}
 \begin{proof}
-  We use similar logic as done in Theorem~\ref{thm:2} to arrive at a formula for the expected number of particles after $n$ shots when the probability is $p$.
+  We use a similar argument to that which is featured in Theorem~\ref{thm:2} to arrive at a formula for the expected number of particles after $n$ shots when the probability is $p$.
   \begin{claim}
     The average number of particles after $n$ shots when the probability of emitting an X-particle is $p \in (0, 1)$ is \[
       (1-p^2)n + p^2
     .\] 
   \end{claim}
   \begin{proof}
-    Again, let the average number of particles after $n$ shots be $T_n$. The number of particles \emph{doesn't} increase when firing an X-particle and the last particle is also an X-particle, which has a probabilty of $p^2$ of happening. Hence, the probability that the number of parrticles \emph{does} increase is $1-p^2$, meaning that the expected number of particles increases by $1-p^2$ after each shot, and thus we obtain \[
+    Again, let the average number of particles after $n$ shots be $T_n$. The number of particles \emph{doesn't} increase when the last particle is an X-particle and the particle emitted is also an X-particle, which has a probabilty of $p^2$ of occuring. Hence, the probability that the number of particles \emph{does} increase is $1-p^2$, meaning that the expected number of particles increases by $1-p^2$ after each shot, and thus we obtain \[
       T_{n+1} = T_{n} + (1-p^2)
     .\] Since $T_1 = 1$, the formula for $T_{n}$ is \[
       T_{n} = (1-p^2)n + p^2 \tag*{\qedhere}
     .\] 
   \end{proof}
-  We can now find the expected number of X-particles in the tube. Since the expected number of Y-particles in the tube is simply $(1 - p)n$, because the probability of emitting a Y-particle is $(1-p)$ at each shot, the expected number of X-particles is 
+  We can now find the expected number of X-particles in the tube. Since the expected number of Y-particles in the tube is simply $(1 - p)n$, as the probability of emitting a Y-particle is $(1-p)$ at each shot, the expected number of X-particles is 
   \begin{align*}
     \#\text{X-particles} &= \#\text{Total particles} - \#\text{Y-particles} \\
                          &= T_n - (1-p)n \\
                          &= (1-p^2)n + p^2 - (1-p)n.
   \end{align*}
-  We then divide this by the total number of particles to obtain the desired proportion and then take the limit as $n \to \infty$, getting 
+  We then divide this by the total number of particles to obtain the desired proportion and then take the limit as $n \to \infty$, to obtain 
   \begin{equation*}
-    \lim_{n \to \infty} \frac{(1-p^2)n + p^2 - (1-p)n}{(1-p^2)n + p^2} = \lim_{n \to \infty} \frac{(1-p^2) + \frac{p^2}{n} - (1-p)}{(1-p^2) + \frac{p^2}{n}}
+    \lim_{n \to \infty} \frac{(1-p^2)n + p^2 - (1-p)n}{(1-p^2)n + p^2} = \lim_{n \to \infty} \frac{(1-p^2) + \frac{p^2}{n} - (1-p)}{(1-p^2) + \frac{p^2}{n}}.
   \end{equation*}
-  By the algebraic limit theorem, the terms with a denominator of $n$ become neglibibly small, and so we obtain 
+  By the algebraic limit theorem, we obtain 
   \begin{align*}
-    \lim_{n \to \infty} \frac{(1-p^2) + 0 - (1-p)}{(1-p^2) + 0} &= \lim_{n \to \infty} \frac{p - p^2}{1 - p^2} \\
-                                                                &= \lim_{n \to \infty} \frac{p(1 - p)}{(1+p)(1-p)} \\
-                                                                &= \lim_{n \to \infty} \frac{p}{1+p}
+    \frac{(1-p^2) + 0 - (1-p)}{(1-p^2) + 0} &= \frac{p - p^2}{1 - p^2} \\
+                                                                &= \frac{p(1 - p)}{(1+p)(1-p)} \\
+                                                                &= \frac{p}{1+p} \tag*{\qedhere}
   \end{align*}
-  Since the limit no longer has any terms containing $n$, we can remove the limit, getting the final result \[
-    \frac{p}{1+p} \tag*{\qedhere}
-  .\] 
 \end{proof}

@@ -1,19 +1,33 @@
 \section{Problem 2}
 
-Compute the average number of particles for $n = 2, 3, 4$.
+\begin{itemize}
+  \item Compute the average number of particles for $n = 2, 3, 4$.
+  \item Can you find the pattern and establish an explicit formula for general $n$?
+\end{itemize}
 
-Can you find the pattern and establish an explicit formula for general $n$?
+We found it most straightforward to proceed directly to finding a general formula. However, it should be noted that it is relatively simple to compute the averages for small $n$ by considering every possible tube after $n$ shots.
 
 \begin{theorem}\label{thm:2}
   The average number of particles after $n$ shots is \[
-  0.75n + 0.25
+  \frac{3}{4}n + \frac{1}{4}
   .\]
 \end{theorem}
 \begin{proof}
-  Let the average number of particles after $n$ shots be $T_n$. Obviously, $T_1 = 1$. Next, consider the chance that after firing a shot, the number of particles \emph{doesn't} decrease. This occurs only in the event that the last particle in the tube is an X-particle, and when the particle emitted is also an X-particle. Since both events have a probability $0.5$, the probability that both occur is simply $0.25$. Hence, the probability that the number of particles \emph{does} increase after firing a shot is $1 - 0.25 = 0.75$. Thus the expected number of particles increases by $0.75$ after each shot, giving us the recursion \[
-    T_{n+1} = T_{n} + 0.75
+  Let the average number of particles after $n$ shots be $T_n$. Obviously, $T_1 = 1$. Next, consider the chance that after firing a shot, the number of particles \emph{doesn't} decrease. This occurs only in the event that the last particle in the tube is an X-particle, and when the particle emitted is also an X-particle. Since both events have a probability $1 / 2$, the probability that both occur is simply $1 / 4$. 
+  \begin{figure}[H]
+    \vspace{-1.5em}
+    \begin{align*}
+    &\text{X} \to \text{X}: \text{X} \\
+    &\text{Y} \to \text{X}: \text{YX} \\
+    &\text{X} \to \text{Y}: \text{XY} \\
+    &\text{Y} \to \text{Y}: \text{YY}
+    \end{align*}
+    \vspace{-3em}
+  \end{figure}
+  Hence, the probability that the number of particles \emph{does} increase after firing a shot is $1 -1 / 4 = 3 / 4$. Thus the expected number of particles increases by $3 / 4$ after each shot, giving us the recursion \[
+    T_{n+1} = T_{n} + \frac{3}{4}
   .\] Since $T_1 = 1$, we arrive at the formula \[
-    T_{n} = 0.75n + 0.25 \tag*{\qedhere}
+    T_{n} = \frac{3}{4}n + \frac{1}{4} \tag*{\qedhere}
   .\] 
 \end{proof}
 
@@ -22,7 +36,7 @@ Using this, we can easily compute the average number of particles when $n = 2, 3
   \centering
   \begin{tabular}{cc}
     \toprule
-    n & $T_n$ \\
+    $n$ & $T_n$ \\
     \midrule
     1 & 1 \\
     2 & 1.75 \\
@@ -31,3 +45,4 @@ Using this, we can easily compute the average number of particles when $n = 2, 3
     \bottomrule
   \end{tabular}
 \end{table}
+

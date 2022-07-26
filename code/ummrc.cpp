@@ -1,8 +1,8 @@
-#include <iostream>
-#include <thread>
 #include <future>
+#include <iostream>
 #include <random>
 #include <string>
+#include <thread>
 #include <vector>
 
 using namespace std;
@@ -93,15 +93,18 @@ int main() {
 
   cout << "q1\n";
   for (int i = 1; i <= 10; i++) {
-    cout << "n = " << i << " prob = " << prob_no_two_consec_after_n(i, runs) << '\n';
+    cout << "n = " << i << " prob = " << prob_no_two_consec_after_n(i, runs)
+         << '\n';
   }
   cout << "q2\n";
   for (int i = 1; i <= 10; i++) {
-    cout << "n = " << i << " avg length = " << threaded_avg_len_after_n(i, runs) << '\n';
+    cout << "n = " << i << " avg length = " << threaded_avg_len_after_n(i, runs)
+         << '\n';
   }
   cout << "q3\n";
   for (double p = 0; p <= 10; p++) {
-    cout << "p = " << p/10 << " proportion = " << proportion_x(runs, p/10) << '\n';
+    cout << "p = " << p / 10 << " proportion = " << proportion_x(runs, p / 10)
+         << '\n';
   }
 
   return 0;
