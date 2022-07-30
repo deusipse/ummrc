@@ -10,6 +10,23 @@
 \usepackage{microtype}
 \usepackage[bf, sc]{titlesec}
 
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{25pt}
+\fancyhead[R]{\scshape \nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+\fancyfoot[R]{J. Li, F. Tang, E. Wang}
+\renewcommand{\footrulewidth}{1pt}
+\fancypagestyle{plain}{
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyhf{}
+}
+
+\usepackage[inline]{asymptote}
+\def\asydir{asy}
+
 \usepackage{caption}
 \usepackage{float}
 \usepackage{booktabs}
@@ -25,27 +42,13 @@
 }
 \setminted{fontsize=\footnotesize, style = friendly, linenos}
 
-\usepackage[inline]{asymptote}
-\def\asydir{asy}
 
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\setlength{\headheight}{25pt}
-\fancyhead[R]{\scshape \nouppercase{\leftmark}}
-\fancyfoot[C]{\thepage}
-\fancyfoot[R]{J. Li, F. Tang, E. Wang}
-\renewcommand{\footrulewidth}{1pt}
-\fancypagestyle{plain}{
-  \renewcommand{\headrulewidth}{0pt}
-  \renewcommand{\footrulewidth}{0pt}
-  \fancyhf{}
-}
 
 \newtheorem{theorem}{\scshape Theorem}
 \newtheorem{problem}{\scshape Question}
 \newtheorem{claim}{\scshape Claim}[theorem]
 \DeclareMathOperator{\prob}{Pr}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
 \title{\scshape {\Huge Mathematics and Statistics Research Competition} \\[1em] Question 8}
 

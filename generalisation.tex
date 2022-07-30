@@ -1,0 +1,116 @@
+\section{Generalisation}
+
+We were able to produce a generalisation of Problem 2:
+\begin{itemize}
+  \item Suppose that if $m$ X-particles are next to each other, they collapse into $n$ X-particles.
+  \item Assume that $k$ particles have been emitted.
+  \item The probability of firing an X-particle is $p$.
+  \item Find the average number of particles.
+  \item It is assumed that $m > n \ge 1$, otherwise the number of particles would simply blow up infinitely.
+\end{itemize}
+
+\begin{theorem}
+  The average number of particles after $k$ shots, when $m$ X-particles collapse into $n$, is $k$ when $k < m$, and otherwise is 
+  \begin{equation}
+    m-1+\sum _{b=m-1}^{k-1} \left(1-p \left(\sum _{a=0}^{\floor*{\frac{b-m}{m-n}} } (1-p) p^{a (m-n)+m-1}+\varepsilon\right) (1-(n-m+1))\right) \label{formula}
+  \end{equation}
+  where $k \ge m$ and $\varepsilon = \begin{cases} \dfrac{1}{2^b}, &b-m+1 = 0 \bmod m-n \\ 0, &k-m+1 \neq 0 \bmod m-n. \end{cases}$
+\end{theorem}
+\begin{proof}
+  Let the average number of particles after $k$ shots be denoted by $T_k$. It is obvious that $T_k = k$ when $k < m$, as it is impossible for any particles to have collapsed. Thus we must proceed to find a formula for $T_k$ when $k \ge m$. We can achieve this by establishing a recurrence for $T_k$ in order to find the difference between each term, and from there we may simply sum the difference to obtain the required formula. 
+
+  We know that $T_k$ is recursive since there are two events that can occur after each shot:
+  \begin{itemize}
+    \item Number of particles increases by 1
+    \item Number of particles increases by $n-m+1$
+  \end{itemize}
+  This is because if an X-particle were added to $m-1$ consecutive X-particles, they would collapse into $n$ X-particles. Hence, the number of particles `increases' by $n-m+1$, although this number is always negative or 0 (as $m > n$). Thus it remains to determine the probability that there are $m-1$ consecutive X-particles at the end of the tube. Letting this probability be $\vartheta$, the probability of the particles collapsing on the next shot is simply $p\vartheta$. As such, the expected number of particles increases by 1 with a probability of  $1-p\vartheta$ and increases by  $n-m+1$ with a probability of $p\vartheta$. Hence, the recurrence is:
+  \begin{align}
+    T_{k+1} &= T_{k} + 1 - p\vartheta + p\vartheta(n-m+1) \nonumber \\
+            &= T_{k} + 1 - p\vartheta(1 - (n-m+1)). \label{eq:1}
+  \end{align}
+  The remaining step is to calculate $\vartheta$.
+  \begin{claim}
+    \begin{equation*}
+      \vartheta = \sum_{a=0}^{\floor*{\frac{k-m}{m-n}}} (1-p)p^{a(m-n)+m-1} + \varepsilon,
+    \end{equation*}
+    where $\varepsilon = \begin{cases} \frac{1}{2^k}, &k-m+1 = 0 \bmod m-n \\ 0, &k-m+1 \neq 0 \bmod m-n. \end{cases}$
+  \end{claim}
+  \begin{proof}
+    Recall that $\vartheta$ is the probability that there are $m-1$ consecutive X-particles at the end of the tube. In order to `count' the number of consecutive X-particles, there must be some end to the string of X-particles. This `end' can occur in two ways: either there is a Y-particle before last X-particle; or there are no Y-particles at all, and the tube compromises completely of X-particles.
+    \begin{figure}[H]
+      \vspace{-1.5em}
+      \begin{align*}
+        &\underbrace{\text{X}\dots\text{X}}_{m-1}\text{Y} \tag{A}\\
+        &\underbrace{\text{X}\dots\text{X}}_{m-1} \tag{B}
+      \end{align*}
+      \vspace{-2em}
+    \end{figure}
+    Let us first consider the case with a Y-particle at the end (configuration A). The probability of such a configuration occuring is simply $(1-p)p^{m-1}$. However, this probability does not account for possible previous collapses. For example, the following sequence of particles may have been emitted which would lead to the same configuration:
+    \begin{figure}[H]
+      \vspace{-1.5em}
+      \begin{equation*}
+        \underbrace{\text{X}\dots\text{X}}_{m + (m-n) - 1}\text{Y} \quad \longrightarrow \quad \underbrace{\text{X}\dots\text{X}}_{n+(m-n)-1}\text{Y}\quad = \quad \underbrace{\text{X}\dots\text{X}}_{m-1}\text{Y} 
+      \end{equation*}
+      \vspace{-2em}
+    \end{figure}
+    It is clear that adding any multiple of $m-n$ X-particles to $m-1$ consecutie X-particles results in the exact same configuration. However, since only $k$ particles have been fired, $a(m-n) + m-1 + 1 \le k$ for some positive integer $a$. We solve this inequality for $a$, getting
+    \begin{align*}
+      a(m-n) + m &\le k \\
+      a(m-n) &\le k - m \\
+      a &\le \frac{k-m}{m-n}.
+    \end{align*}
+    Thus the maximum value of $a$ is $\floor*{\dfrac{k-m}{m-n}},$ so the probability of configuration A is \[
+      \sum_{a=0}^{\floor*{\frac{k-m}{m-n}}} (1-p)p^{a(m-n)+m-1}
+    .\]
+    We now consider configuration B, which consists of X-particles only. Again, the configuration can be achieved with $a(m-n) + m-1$ consecutive X-particles, for some positive integer $a$. However, this time there cannot be any other particles other than these X-particles, meaning that  $k = a(m-n) + m-1$. It now becomes obvious that $k-m+1$ must be an integer multiple of $m-n$, at which point there is a single sequence of particles which results in $m-1$ consecutive X-particles. When $k-m+1$ is not an integer multiple of $m-n$, there is no possible way for configuration B to exist. Thus the probability of configuration B occuring can be expressed by $\varepsilon$, where \[
+      \varepsilon = 
+      \begin{cases}
+        \frac{1}{2^k}, &k-m+1 = 0 \bmod m-n \\
+        0, &k-m+1 \neq 0 \bmod m-n.
+      \end{cases}
+    \] We then add the probabilities of configurations A and B to get the overall probability of the tube ending in $m-1$ consecutive X-particles, which is  \[
+    \vartheta = \sum_{a=0}^{\floor*{\frac{k-m}{m-n}}} (1-p)p^{a(m-n)+m-1} + \varepsilon
+    ,\] as required.
+  \end{proof}
+  Since we have previously determined a recursive formula for $T_k$ in terms of $\vartheta$ and $\varepsilon$ in Equation~\ref{eq:1}, we can simply sum the difference between each term to obtain a closed expression for the value of any term. We have \[
+    T_{k+1} = T_k + 1 - p\vartheta(1-(n-m+1))
+  ,\] meaning the difference between terms is $1-p\vartheta(1-(n-m+1))$. We then add $m-1$ to the sum of this difference from $m-1$ to $k$ (since the formula is only required for $k \ge m$). This yields \[
+    T_k = m-1+\sum _{b=m-1}^{k-1} \left(1-p \left(\sum _{a=0}^{\floor*{\frac{b-m}{m-n}} } (1-p) p^{a (m-n)+m-1}+\varepsilon\right) (1-(n-m+1))\right)
+  . \tag*{\qedhere}\] 
+\end{proof}
+It should be noted that $\vartheta$ is the sum of a geometric sequence, although for brevity, the sum is left unexpanded. The expanded sum is  \[
+  \vartheta = \frac{(p-1) p^{m+n-1} \left(p^{(m-n) \left(\floor*{\frac{k-m}{m-n}} +1\right)}-1\right)}{p^n-p^m}
+.\] In addition, there also exists a closed form of $\varepsilon$, though it is somewhat distasteful. If we define a summation as 0 when its upper bound is less than its lower bound, then we obtain \[
+\varepsilon = \sum_{a=0}^{(m-k-1) + \floor*{\frac{k-m+1}{m-n}}\cdot (m-n)} \frac{1}{2^k}
+.\] The upper bound is simply the negative remainder of $k-m+1$ when divided by  $m-n$, which is 0 if and only if $k-m+1$ is an integer multiple of $m-n$, and negative everywhere else. The lower bound, $a$ is 0 simply to make the sum 0 whenever the upper bound is negative, and is not used elsewhere.
+
+\subsection{Nice solutions of general formula}
+The general formula for the average length in Equation~\ref{formula} is rather unwieldy. However, observe that many of the terms depend on $m-n$. If we just set  $m-n = 1 \implies n = m - 1$, then the formula can be reduced dramatically:
+\begin{align}
+  T_k &= m-1+\sum _{b=m-1}^{k-1} \left(1-p \left(\sum _{a=0}^{\floor*{\frac{b-m}{1}} } (1-p) p^{a (1)+m-1}+\varepsilon\right) (1-((m-1)-m+1))\right) \nonumber \\
+      &= m-1+\sum _{b=m-1}^{k-1} \left(1-p \left(\sum _{a=0}^{b-m} (1-p) p^{a+m-1}+ \frac{1}{2^b} \right) \right) \label{eq:3}
+\end{align}
+Even $\varepsilon = \frac{1}{2^k}$ becomes constant, as $z = 0 \bmod 1$ for any integer  $z$. Let us now evaluate $\vartheta$, which is the sum of a geometric sequence:
+\begin{align*}
+  \vartheta &= \sum_{a=0}^{k-m} (1-p)p^{a+m-1} + \frac{1}{2^k} \\
+            &= \sum_{a=0}^{k-m} (1-p)\bigl(p^{m-1}\bigr)p^{a} + \frac{1}{2^{k}} \\
+            &= (1-p)\bigl(p^{m-1}\bigr)\left(\frac{1-p^{k-m+1}}{1-p}\right) + \frac{1}{2^{k}} \\
+            &= p^{m-1}(1-p^{k-m+1}) + \frac{1}{2^{k}} \\
+            &= p^{m-1} - p^{k} + \frac{1}{2^{k}}
+\end{align*}
+Now consider when $p = \frac{1}{2}$. $\vartheta$ now becomes \[
+  \vartheta = \frac{1}{2^{m-1}}
+,\] which is dependent only on $m$, meaning $\vartheta$ is constant. Hence the difference between the terms of $T_k$ is constant when $n = m-1$ and $p = \frac{1}{2}$, and so $T_k$ would be linear. Let us now compute this difference more precisely. Using Equation~\ref{eq:3}, we see that the difference is \[
+  1-p\vartheta = 1-\frac{1}{2^{m}}
+.\] The formula for $T_k$ is then simply 
+\begin{align}
+  T_k &= m-1 + \sum_{b=m-1}^{k-1} \left(1-\frac{1}{2^{m}}\right) \nonumber \\
+      &= m-1 + (k-m+1)\left(1 - \frac{1}{2^{m}}\right). \label{niceform}
+\end{align}
+Using Equation~\ref{niceform}, we can easily derive the formula for $T_k$ when $m = 2$ and $n = 1$, which is equivalent to Problem~\hyperlink{p2}{2}: 
+\begin{align*}
+  T_k &= 2 - 1 + (k-2+1)\left(1 - \frac{1}{4}\right) \\
+      &= 1 + \frac{3}{4}(k-1) \\
+      &= \frac{3}{4}k + \frac{1}{4}.
+\end{align*}

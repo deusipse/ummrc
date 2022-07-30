@@ -23,13 +23,13 @@ The probability we require can be calculated by dividing the total number of way
 \end{claim}
 \begin{proof}
   Consider a tube with $n$ particles in it. Let the number of X-particles be equal to $k$, so that the number of Y-particles is $n-k$. Consider the tube without the X-particles, consisting solely of Y-particles in a line:
-  \begin{equation}
-    \underbrace{\text{YY\dots YY}}_{n-k}
-  \end{equation}
+  \begin{equation*}
+  \underbrace{\text{YY}\dots\text{YY}}_{n-k}
+  \end{equation*}
   Now consider the `gaps' between these Y-particles, indicated by a bar (|):
-  \begin{equation}
+  \begin{equation*}
     \text{|Y|Y|\dots |Y|Y|}
-  \end{equation}
+  \end{equation*}
   Notice that there are exactly $n-k+1$ `gaps'. Clearly, if we were to only place X-particles in the gaps, then there would never be any consecutive X-particles. This can be done in a total of \[
     \binom{n-k+1}{k}
     \] ways. However, we must consider this for any number of X-particles $k$, so we arrive at the sum \[
