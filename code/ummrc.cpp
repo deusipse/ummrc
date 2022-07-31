@@ -89,7 +89,7 @@ double proportion_x(int runs, double p) {
 
 int main() {
 
-  unsigned long long runs = 1000000;
+  long long runs = 1000000;
 
   cout << "q1\n";
   for (int i = 1; i <= 10; i++) {

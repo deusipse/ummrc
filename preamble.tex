@@ -3,6 +3,9 @@
 \usepackage{amsthm}
 \usepackage{parskip}
 
+% \usepackage[no-math]{fontspec}
+% \setmainfont{ETbb}
+\usepackage[margin = 1.75in, a4paper]{geometry}
 \usepackage[p]{ETbb}
 \usepackage[scaled=.95, type1]{cabin}
 \usepackage[T1]{fontenc}
@@ -24,15 +27,20 @@
   \fancyhf{}
 }
 
+\usepackage[usenames, svgnames, dvipsnames, table]{xcolor}
+
 \usepackage[inline]{asymptote}
 \def\asydir{asy}
+
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=1.18}
 
 \usepackage{caption}
 \usepackage{float}
 \usepackage{booktabs}
 \usepackage{minted}
 \usepackage{FiraMono}
-\usepackage[usenames, svgnames, dvipsnames, table]{xcolor}
 \usepackage{hyperref}
 \hypersetup{
   colorlinks,

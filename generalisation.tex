@@ -10,11 +10,11 @@ We were able to produce a generalisation of Problem 2:
 \end{itemize}
 
 \begin{theorem}
-  The average number of particles after $k$ shots, when $m$ X-particles collapse into $n$, is $k$ when $k < m$, and otherwise is 
+  The average number of particles after $k$ shots, when $m$ X-particles collapse into $n$, is $k$ when $k < m$, and is 
   \begin{equation}
-    m-1+\sum _{b=m-1}^{k-1} \left(1-p \left(\sum _{a=0}^{\floor*{\frac{b-m}{m-n}} } (1-p) p^{a (m-n)+m-1}+\varepsilon\right) (1-(n-m+1))\right) \label{formula}
+    m-1+\sum _{b=m-1}^{k-1} \left(1-p \left(\sum _{a=0}^{\floor*{\frac{b-m}{m-n}} } (1-p) p^{a (m-n)+m-1}+\varepsilon\right) (m-n)\right) \label{formula}
   \end{equation}
-  where $k \ge m$ and $\varepsilon = \begin{cases} \dfrac{1}{2^b}, &b-m+1 = 0 \bmod m-n \\ 0, &k-m+1 \neq 0 \bmod m-n. \end{cases}$
+  when $k \ge m$ and $\varepsilon = \begin{cases} p^{b}, &b-m+1 = 0 \bmod m-n \\ 0, &b-m+1 \neq 0 \bmod m-n. \end{cases}$
 \end{theorem}
 \begin{proof}
   Let the average number of particles after $k$ shots be denoted by $T_k$. It is obvious that $T_k = k$ when $k < m$, as it is impossible for any particles to have collapsed. Thus we must proceed to find a formula for $T_k$ when $k \ge m$. We can achieve this by establishing a recurrence for $T_k$ in order to find the difference between each term, and from there we may simply sum the difference to obtain the required formula. 
@@ -27,14 +27,14 @@ We were able to produce a generalisation of Problem 2:
   This is because if an X-particle were added to $m-1$ consecutive X-particles, they would collapse into $n$ X-particles. Hence, the number of particles `increases' by $n-m+1$, although this number is always negative or 0 (as $m > n$). Thus it remains to determine the probability that there are $m-1$ consecutive X-particles at the end of the tube. Letting this probability be $\vartheta$, the probability of the particles collapsing on the next shot is simply $p\vartheta$. As such, the expected number of particles increases by 1 with a probability of  $1-p\vartheta$ and increases by  $n-m+1$ with a probability of $p\vartheta$. Hence, the recurrence is:
   \begin{align}
     T_{k+1} &= T_{k} + 1 - p\vartheta + p\vartheta(n-m+1) \nonumber \\
-            &= T_{k} + 1 - p\vartheta(1 - (n-m+1)). \label{eq:1}
+            &= T_{k} + 1 - p\vartheta(m-n). \label{eq:1}
   \end{align}
   The remaining step is to calculate $\vartheta$.
   \begin{claim}
     \begin{equation*}
       \vartheta = \sum_{a=0}^{\floor*{\frac{k-m}{m-n}}} (1-p)p^{a(m-n)+m-1} + \varepsilon,
     \end{equation*}
-    where $\varepsilon = \begin{cases} \frac{1}{2^k}, &k-m+1 = 0 \bmod m-n \\ 0, &k-m+1 \neq 0 \bmod m-n. \end{cases}$
+    where $\varepsilon = \begin{cases} p^{k}, &k-m+1 = 0 \bmod m-n \\ 0, &k-m+1 \neq 0 \bmod m-n. \end{cases}$
   \end{claim}
   \begin{proof}
     Recall that $\vartheta$ is the probability that there are $m-1$ consecutive X-particles at the end of the tube. In order to `count' the number of consecutive X-particles, there must be some end to the string of X-particles. This `end' can occur in two ways: either there is a Y-particle before last X-particle; or there are no Y-particles at all, and the tube compromises completely of X-particles.
@@ -54,7 +54,7 @@ We were able to produce a generalisation of Problem 2:
       \end{equation*}
       \vspace{-2em}
     \end{figure}
-    It is clear that adding any multiple of $m-n$ X-particles to $m-1$ consecutie X-particles results in the exact same configuration. However, since only $k$ particles have been fired, $a(m-n) + m-1 + 1 \le k$ for some positive integer $a$. We solve this inequality for $a$, getting
+    It is clear that adding any multiple of $m-n$ X-particles to $m-1$ consecutive X-particles results in the exact same configuration. However, since only $k$ particles have been fired, $a(m-n) + m-1 + 1 \le k$ for some positive integer $a$. We solve this inequality for $a$, getting
     \begin{align*}
       a(m-n) + m &\le k \\
       a(m-n) &\le k - m \\
@@ -66,7 +66,7 @@ We were able to produce a generalisation of Problem 2:
     We now consider configuration B, which consists of X-particles only. Again, the configuration can be achieved with $a(m-n) + m-1$ consecutive X-particles, for some positive integer $a$. However, this time there cannot be any other particles other than these X-particles, meaning that  $k = a(m-n) + m-1$. It now becomes obvious that $k-m+1$ must be an integer multiple of $m-n$, at which point there is a single sequence of particles which results in $m-1$ consecutive X-particles. When $k-m+1$ is not an integer multiple of $m-n$, there is no possible way for configuration B to exist. Thus the probability of configuration B occuring can be expressed by $\varepsilon$, where \[
       \varepsilon = 
       \begin{cases}
-        \frac{1}{2^k}, &k-m+1 = 0 \bmod m-n \\
+        p^{k}, &k-m+1 = 0 \bmod m-n \\
         0, &k-m+1 \neq 0 \bmod m-n.
       \end{cases}
     \] We then add the probabilities of configurations A and B to get the overall probability of the tube ending in $m-1$ consecutive X-particles, which is  \[
@@ -74,43 +74,104 @@ We were able to produce a generalisation of Problem 2:
     ,\] as required.
   \end{proof}
   Since we have previously determined a recursive formula for $T_k$ in terms of $\vartheta$ and $\varepsilon$ in Equation~\ref{eq:1}, we can simply sum the difference between each term to obtain a closed expression for the value of any term. We have \[
-    T_{k+1} = T_k + 1 - p\vartheta(1-(n-m+1))
-  ,\] meaning the difference between terms is $1-p\vartheta(1-(n-m+1))$. We then add $m-1$ to the sum of this difference from $m-1$ to $k$ (since the formula is only required for $k \ge m$). This yields \[
-    T_k = m-1+\sum _{b=m-1}^{k-1} \left(1-p \left(\sum _{a=0}^{\floor*{\frac{b-m}{m-n}} } (1-p) p^{a (m-n)+m-1}+\varepsilon\right) (1-(n-m+1))\right)
+    T_{k+1} = T_k + 1 - p\vartheta(m-n)
+  ,\] meaning the difference between terms is $1-p\vartheta(m-n)$. We then add $m-1$ to the sum of this difference from $m-1$ to $k$ (since the formula is only required for $k \ge m$). This yields \[
+    T_k = m-1+\sum _{b=m-1}^{k-1} \left(1-p \left(\sum _{a=0}^{\floor*{\frac{b-m}{m-n}} } (1-p) p^{a (m-n)+m-1}+\varepsilon\right) (m-n)\right)
   . \tag*{\qedhere}\] 
 \end{proof}
 It should be noted that $\vartheta$ is the sum of a geometric sequence, although for brevity, the sum is left unexpanded. The expanded sum is  \[
   \vartheta = \frac{(p-1) p^{m+n-1} \left(p^{(m-n) \left(\floor*{\frac{k-m}{m-n}} +1\right)}-1\right)}{p^n-p^m}
 .\] In addition, there also exists a closed form of $\varepsilon$, though it is somewhat distasteful. If we define a summation as 0 when its upper bound is less than its lower bound, then we obtain \[
-\varepsilon = \sum_{a=0}^{(m-k-1) + \floor*{\frac{k-m+1}{m-n}}\cdot (m-n)} \frac{1}{2^k}
+\varepsilon = \sum_{a=0}^{(m-k-1) + \floor*{\frac{k-m+1}{m-n}}\cdot (m-n)} p^{k}
 .\] The upper bound is simply the negative remainder of $k-m+1$ when divided by  $m-n$, which is 0 if and only if $k-m+1$ is an integer multiple of $m-n$, and negative everywhere else. The lower bound, $a$ is 0 simply to make the sum 0 whenever the upper bound is negative, and is not used elsewhere.
 
-\subsection{Nice solutions of general formula}
-The general formula for the average length in Equation~\ref{formula} is rather unwieldy. However, observe that many of the terms depend on $m-n$. If we just set  $m-n = 1 \implies n = m - 1$, then the formula can be reduced dramatically:
+\subsection{Nice solution of general formula}
+The general formula for the average length in Equation~\ref{formula} is rather unwieldy. However, observe that many of the terms depend on $m-n$. If we set  $m-n = 1 \implies n = m - 1$, then the formula can be reduced dramatically:
 \begin{align}
-  T_k &= m-1+\sum _{b=m-1}^{k-1} \left(1-p \left(\sum _{a=0}^{\floor*{\frac{b-m}{1}} } (1-p) p^{a (1)+m-1}+\varepsilon\right) (1-((m-1)-m+1))\right) \nonumber \\
-      &= m-1+\sum _{b=m-1}^{k-1} \left(1-p \left(\sum _{a=0}^{b-m} (1-p) p^{a+m-1}+ \frac{1}{2^b} \right) \right) \label{eq:3}
+  T_k &= m-1+\sum _{b=m-1}^{k-1} \left(1-p \left(\sum _{a=0}^{\floor*{\frac{b-m}{1}} } (1-p) p^{a (1)+m-1}+\varepsilon\right) (m-n)\right) \nonumber \\
+      &= m-1+\sum _{b=m-1}^{k-1} \left(1-p \left(\sum _{a=0}^{b-m} (1-p) p^{a+m-1}+ p^{b} \right) \right) \label{eq:3}
 \end{align}
-Even $\varepsilon = \frac{1}{2^k}$ becomes constant, as $z = 0 \bmod 1$ for any integer  $z$. Let us now evaluate $\vartheta$, which is the sum of a geometric sequence:
+Notice that even $\varepsilon = p^{b}$ becomes constant, as $z = 0 \bmod 1$ for any integer  $z$. Let us now evaluate $\vartheta$, which is the sum of a geometric sequence:
 \begin{align*}
-  \vartheta &= \sum_{a=0}^{k-m} (1-p)p^{a+m-1} + \frac{1}{2^k} \\
-            &= \sum_{a=0}^{k-m} (1-p)\bigl(p^{m-1}\bigr)p^{a} + \frac{1}{2^{k}} \\
-            &= (1-p)\bigl(p^{m-1}\bigr)\left(\frac{1-p^{k-m+1}}{1-p}\right) + \frac{1}{2^{k}} \\
-            &= p^{m-1}(1-p^{k-m+1}) + \frac{1}{2^{k}} \\
-            &= p^{m-1} - p^{k} + \frac{1}{2^{k}}
+  \vartheta &= \sum_{a=0}^{k-m} (1-p)p^{a+m-1} + p^k \\
+            &= \sum_{a=0}^{k-m} (1-p)\bigl(p^{m-1}\bigr)p^{a} + p^k \\
+            &= (1-p)\bigl(p^{m-1}\bigr)\left(\frac{1-p^{k-m+1}}{1-p}\right) + p^k \\
+            &= p^{m-1}\bigl(1-p^{k-m+1}\bigr) + p^k \\
+            &= p^{m-1} - p^{k} + p^{k} \\
+            &= p^{m-1}
 \end{align*}
-Now consider when $p = \frac{1}{2}$. $\vartheta$ now becomes \[
-  \vartheta = \frac{1}{2^{m-1}}
-,\] which is dependent only on $m$, meaning $\vartheta$ is constant. Hence the difference between the terms of $T_k$ is constant when $n = m-1$ and $p = \frac{1}{2}$, and so $T_k$ would be linear. Let us now compute this difference more precisely. Using Equation~\ref{eq:3}, we see that the difference is \[
-  1-p\vartheta = 1-\frac{1}{2^{m}}
+This is dependent only on $m$, meaning $\vartheta$ is constant. Hence the difference between the terms of $T_k$ is constant when $n = m-1$, and so $T_k$ would be linear. Let us now compute this difference more precisely. Using Equation~\ref{eq:3}, we see that the difference is \[
+  1-p\vartheta = 1-p^{m}
 .\] The formula for $T_k$ is then simply 
 \begin{align}
-  T_k &= m-1 + \sum_{b=m-1}^{k-1} \left(1-\frac{1}{2^{m}}\right) \nonumber \\
-      &= m-1 + (k-m+1)\left(1 - \frac{1}{2^{m}}\right). \label{niceform}
+  T_k &= m-1 + \sum_{b=m-1}^{k-1} \left(1-p^m\right) \nonumber \\
+      &= m-1 + (k-m+1)\left(1 - p^m\right). \label{niceform}
 \end{align}
-Using Equation~\ref{niceform}, we can easily derive the formula for $T_k$ when $m = 2$ and $n = 1$, which is equivalent to Problem~\hyperlink{p2}{2}: 
+Using Equation~\ref{niceform}, we can easily derive the formula for $T_k$ when $m = 2$, $n = 1$ and $p = \frac{1}{2}$, which is equivalent to Problem~\hyperlink{p2}{2}: 
 \begin{align*}
   T_k &= 2 - 1 + (k-2+1)\left(1 - \frac{1}{4}\right) \\
       &= 1 + \frac{3}{4}(k-1) \\
       &= \frac{3}{4}k + \frac{1}{4}.
 \end{align*}
+\subsection{Limiting difference between terms}
+We now consider the difference between the terms, as the number of shots, $k$, tends towards infinity. Recall that the difference is 
+\begin{equation}\label{diff}
+  T_{k+1} - T_{k} = 1 - p\vartheta(m-n),
+  \end{equation}
+  where \[
+\vartheta = \sum_{a=0}^{\floor*{\frac{k-m}{m-n}}} (1-p)p^{a(m-n)+m-1} + \varepsilon
+\] and \[
+  \varepsilon = 
+  \begin{cases}
+    p^{k}, &k-m+1 = 0 \bmod m-n \\
+    0, &k-m+1 \neq 0 \bmod m-n.
+  \end{cases}
+\] As $k$ increases, $\varepsilon$ tends towards 0 since its only non-zero value is $p^{k}$. In addition, $\floor*{\frac{k-m}{m-n}}$ tends towards infinity. We hence have the limit as $k$ approaches infinity of \[
+  \vartheta = \sum_{a=0}^{\infty} (1-p)p^{a(m-n)+m-1}
+.\] Evaluating this geometric series yields
+\begin{align*}
+  \vartheta &= \sum_{a=0}^{\infty} (1-p)\bigl(p^{m-1}\bigr)\bigl(p^{m-n}\bigr)^{a} \\
+            &= \frac{(1-p)p^{m-1}}{1-p^{m-n}}.
+\end{align*}
+Plugging this into Equation~\ref{diff} gives us
+\begin{align}
+  \lim_{k \to \infty} T_{k+1} - T_{k} &= 1 - p\left( \frac{(1-p)p^{m-1}}{1-p^{m-n}} \right) (m-n) \nonumber \\
+                                      &= 1 - \left( \frac{p^{m} - p^{m+1}}{1-p^{m-n}} \right) (m-n). \label{eq:4}
+\end{align}
+Therefore the difference converges to a constant as the number of shots increases, implying that $T_k$ becomes more and more linear as the number of terms increases.
+
+For example, let us calculate this limiting difference for $m = 4, n = 1, p = \frac{1}{2}$. Plugging in these values, we obtain $\frac{25}{28}$. By plotting the difference between terms, we see that the difference does indeed converge to this value (Figure~\ref{conv}).
+
+We can also plot the average number of particles as the number of shots increases, whilst varying $p$. Obviously, when $p = 0$, the line is simply linear. However, things get more interesting as $p$ gets very close to 1. A plot is shown in Figure~\ref{coolgraph}, in which the average number of particles can be seen oscillating when $p = 1$. This oscillation is caused by the constant emission of X-particles, which causes it to collase every $m-n$ shots.
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[width = 0.8*\textwidth, title = {$T_{k+1} - T_{k}$ vs $k$, $m = 4, n = 1, p = \frac{1}{2}$}, legend pos = south east, xlabel = $k$]
+      \addplot[red] table[x=k, y=diff] {data.dat};
+      \addplot[domain = 3:20, dashed] {25/28};
+      \legend{$T_{k+1} - T_{k}$, $\frac{25}{28}$};
+    \end{axis}
+  \end{tikzpicture}
+  \caption{}
+  \label{conv}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[width = 0.9*\textwidth, title = {Average number of particles vs $k$, colour corresponds to $p$, $m = 5, n = 3$}, legend pos = south east, xlabel = $k$]
+      \addplot[red!0!green] table[x=k, y=0] {data2.dat};
+      \addplot[red!10!green] table[x=k, y=0.1] {data2.dat};
+      \addplot[red!20!green] table[x=k, y=0.2] {data2.dat};
+      \addplot[red!30!green] table[x=k, y=0.3] {data2.dat};
+      \addplot[red!40!green] table[x=k, y=0.4] {data2.dat};
+      \addplot[red!50!green] table[x=k, y=0.5] {data2.dat};
+      \addplot[red!60!green] table[x=k, y=0.6] {data2.dat};
+      \addplot[red!70!green] table[x=k, y=0.7] {data2.dat};
+      \addplot[red!80!green] table[x=k, y=0.8] {data2.dat};
+      \addplot[red!90!green] table[x=k, y=0.9] {data2.dat};
+      \addplot[red!100!green] table[x=k, y=1] {data2.dat};
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Pure green corresponds to $p = 0$, pure red corresponds to $p = 1$}
+  \label{coolgraph}
+\end{figure}

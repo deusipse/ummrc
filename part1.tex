@@ -16,17 +16,18 @@ The probability we require can be calculated by dividing the total number of way
 \begin{equation*}
   \prob(\text{No consecutive X-particles}) = \frac{\# \text{Arrangements w/o consecutive X-particles}}{\# \text{Total arrangements}}
 \end{equation*}
-\begin{claim}
-  The number of arrangements with no consecutive X-particles is \[
+\begin{claim}\label{combiformula}
+  The number of arrangements with no consecutive X-particles is 
+  \begin{equation}
     \sum_{k=0}^n \binom{n-k+1}{k}.
-  \]
+  \end{equation}
 \end{claim}
 \begin{proof}
   Consider a tube with $n$ particles in it. Let the number of X-particles be equal to $k$, so that the number of Y-particles is $n-k$. Consider the tube without the X-particles, consisting solely of Y-particles in a line:
   \begin{equation*}
   \underbrace{\text{YY}\dots\text{YY}}_{n-k}
   \end{equation*}
-  Now consider the `gaps' between these Y-particles, indicated by a bar (|):
+  Now consider the `gaps' between these Y-particles, indicated by a bar:
   \begin{equation*}
     \text{|Y|Y|\dots |Y|Y|}
   \end{equation*}
@@ -36,7 +37,7 @@ The probability we require can be calculated by dividing the total number of way
     \#\text{Arrangements with no consecutive X-particles} = \sum_{k=0}^n \binom{n-k+1}{k}. \qedhere
   \]
 \end{proof}
-\begin{claim}
+\begin{claim}\label{combithing}
   \[
     \sum_{k=0}^n \binom{n-k+1}{k} = F_{n+2},
   \] where $F_n$ is the $n$th Fibonnaci number.
@@ -73,9 +74,9 @@ The probability we require can be calculated by dividing the total number of way
         pair A = (-rows, -rows*sqrt(3));
         pair B = (A + i*(3, sqrt(3)));
         if (i != 0)
-        draw(B + 0.25*(-1, sqrt(3)) -- B + 0.75*(-1, sqrt(3)), red+opacity(0.8));
+        draw(B + 0.25*(-1, sqrt(3)) -- B + 0.75*(-1, sqrt(3)), red);
         if (i != floor(rows/2))
-        draw(B + 0.25*(1, sqrt(3)) -- B + 0.75*(1, sqrt(3)), red+opacity(0.8));
+        draw(B + 0.25*(1, sqrt(3)) -- B + 0.75*(1, sqrt(3)), red);
       }
 
       for (int i = 0; i <= rows; ++i) {
@@ -92,11 +93,11 @@ The probability we require can be calculated by dividing the total number of way
   \begin{align*}
     &F_0 = 0, \\
     &F_1 = 1, \\
-    &F_n = F_{n-1} + F_{n-2}. \tag{n > 1}
+    &F_n = F_{n-1} + F_{n-2}. \tag{$n > 1$}
   \end{align*}
   We will define a function $f(n) = \sum_{k=0}^n \binom{n-k+1}{n}$. It is sufficient to prove that $f(1) = F_{3} = 2$, $f(2) = F_{4} = 3$, and that $f(n) = f(n-1) + f(n-2)$, which would then imply the result by definition of the Fibonnaci numbers.
 
-  It is obvious that $f(1) = \binom{2}{0} + \binom{1}{1} = 2$, which is equal to $F_{3}$. Next, $f(2) = \binom{3}{0} + \binom{2}{1} + \binom{1}{2} = 3$. Notice that we define $\binom{n}{k} = 0$ when $n < k$, as it is impossible to choose $k$ things from a set with elements less than $k$.
+  It is obvious that $f(1) = \binom{2}{0} + \binom{1}{1} = 2$, which is equal to $F_{3}$. Next, $f(2) = \binom{3}{0} + \binom{2}{1} + \binom{1}{2} = 3$. Notice that we define $\binom{n}{k} = 0$ when $n < k$, as it is impossible to choose $k$ things from a set with less than $k$ elements.
 
   We proceed to prove that $f(n) = f(n-1) + f(n-2)$, where $n > 2$. Using the fact that $\binom{n}{0} = 1$, we rewrite $f(n)$ using Pascal's identity and linearity as \[
     f(n) = 1 + \sum_{k=1}^n \binom{n-k+1}{k} = 1 + \sum_{k=1}^n \binom{n-k}{k} + \sum_{k=1}^n \binom{n-k}{k-1}.
@@ -109,6 +110,10 @@ The probability we require can be calculated by dividing the total number of way
          &= f(n-1) + f(n-2) + 0.
   \end{align*}
   Hence $f(n)$ must be equivalent to $F_{n+2}$.
+\end{proof}
+In the spirit of Arthur Benjamin and Jennifer Quinn, we also provide a purely combinatorial proof for Claim~\ref{combithing}.
+\begin{proof}
+  Let the number of arrangements without consecutive X-particles after $n$ shots be $R_n$. Now consider the two choices of the first particle: either Y or X. If the first particle was a Y-particle, then the number of arrangements without consecutive X-particles is simply $R_{n-1}$. However, if the first particle was an X-particle, then the next particle must be a Y-particle, and therefore the number of arrangements is $R_{n-2}$. Hence $R_{n} = R_{n-1} + R_{n-2}$, and since $R_1 = 2$ and  $R_2 = 3$, we have $R_{n} = F_{n+2}$. We then equate this with the formula obtained in Claim~\ref{combiformula} to conclude the proof.
 \end{proof}
 \begin{claim}
   The number of total arrangements of a tube with $n$ particles is \[2^n.\]
