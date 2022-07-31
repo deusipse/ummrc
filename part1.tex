@@ -111,7 +111,7 @@ The probability we require can be calculated by dividing the total number of way
   \end{align*}
   Hence $f(n)$ must be equivalent to $F_{n+2}$.
 \end{proof}
-In the spirit of Arthur Benjamin and Jennifer Quinn, we also provide a purely combinatorial proof for Claim~\ref{combithing}.
+In the spirit of Arthur Benjamin and Jennifer Quinn\cite{downfall}, we also provide a purely combinatorial proof for Claim~\ref{combithing}.
 \begin{proof}
   Let the number of arrangements without consecutive X-particles after $n$ shots be $R_n$. Now consider the two choices of the first particle: either Y or X. If the first particle was a Y-particle, then the number of arrangements without consecutive X-particles is simply $R_{n-1}$. However, if the first particle was an X-particle, then the next particle must be a Y-particle, and therefore the number of arrangements is $R_{n-2}$. Hence $R_{n} = R_{n-1} + R_{n-2}$, and since $R_1 = 2$ and  $R_2 = 3$, we have $R_{n} = F_{n+2}$. We then equate this with the formula obtained in Claim~\ref{combiformula} to conclude the proof.
 \end{proof}
