@@ -37,6 +37,7 @@ The probability we require can be calculated by dividing the total number of way
     \#\text{Arrangements with no consecutive X-particles} = \sum_{k=0}^n \binom{n-k+1}{k}. \qedhere
   \]
 \end{proof}
+For each value of $n$, we can show that this summation reduces to a very familiar number. 
 \begin{claim}\label{combithing}
   \[
     \sum_{k=0}^n \binom{n-k+1}{k} = F_{n+2},
@@ -99,9 +100,9 @@ The probability we require can be calculated by dividing the total number of way
 
   It is obvious that $f(1) = \binom{2}{0} + \binom{1}{1} = 2$, which is equal to $F_{3}$. Next, $f(2) = \binom{3}{0} + \binom{2}{1} + \binom{1}{2} = 3$. Notice that we define $\binom{n}{k} = 0$ when $n < k$, as it is impossible to choose $k$ things from a set with less than $k$ elements.
 
-  We proceed to prove that $f(n) = f(n-1) + f(n-2)$, where $n > 2$. Using the fact that $\binom{n}{0} = 1$, we rewrite $f(n)$ using Pascal's identity and linearity as \[
+  We proceed to prove that $f(n) = f(n-1) + f(n-2)$, where $n > 2$. Using the fact that $\binom{n}{0} = 1$, we rewrite $f(n)$ using Pascal's identity and linearity, giving \[
     f(n) = 1 + \sum_{k=1}^n \binom{n-k+1}{k} = 1 + \sum_{k=1}^n \binom{n-k}{k} + \sum_{k=1}^n \binom{n-k}{k-1}.
-  \] Next, we simplify, getting
+  \] Next, we simplify, obtaining
   \begin{align*}
     f(n) &= \sum_{k=0}^n \binom{n - k}{k} + \sum_{k=1}^n \binom{n-k}{k-1} \\
          &= \sum_{k=0}^{n-1} \binom{n-k}{k} + \binom{n-n}{k} + \sum_{k=1}^n \binom{n-k}{k-1} \\
@@ -111,12 +112,12 @@ The probability we require can be calculated by dividing the total number of way
   \end{align*}
   Hence $f(n)$ must be equivalent to $F_{n+2}$.
 \end{proof}
-In the spirit of Arthur Benjamin and Jennifer Quinn\cite{downfall}, we also provide a purely combinatorial proof for Claim~\ref{combithing}.
+In the spirit of Benjamin and Quinn \cite{combibook}, we also provide a purely combinatorial proof of Claim~\ref{combithing}.
 \begin{proof}
-  Let the number of arrangements without consecutive X-particles after $n$ shots be $R_n$. Now consider the two choices of the first particle: either Y or X. If the first particle was a Y-particle, then the number of arrangements without consecutive X-particles is simply $R_{n-1}$. However, if the first particle was an X-particle, then the next particle must be a Y-particle, and therefore the number of arrangements is $R_{n-2}$. Hence $R_{n} = R_{n-1} + R_{n-2}$, and since $R_1 = 2$ and  $R_2 = 3$, we have $R_{n} = F_{n+2}$. We then equate this with the formula obtained in Claim~\ref{combiformula} to conclude the proof.
+  Let the number of arrangements without consecutive X-particles after $n$ shots be $R_n$. Now consider the two choices of the first particle: either Y or X. If the first particle was a Y-particle, then the number of arrangements without consecutive X-particles into the remaining $n-1$ positions is simply $R_{n-1}$. However, if the first particle was an X-particle, then the next particle must be a Y-particle, and therefore the number of arrangements of particles into the remaining $n-2$ positions is $R_{n-2}$. Hence $R_{n} = R_{n-1} + R_{n-2}$, and since $R_1 = 2$ and  $R_2 = 3$, we have $R_{n} = F_{n+2}$. We then equate this with the formula obtained in Claim~\ref{combiformula} to conclude the proof.
 \end{proof}
 \begin{claim}
-  The number of total arrangements of a tube with $n$ particles is \[2^n.\]
+  The total number of arrangements of particles in a tube with $n$ particles is \[2^n.\]
 \end{claim}
 \begin{proof}
   Each particle in the tube can be either an X-particle or a Y-particle, meaning there are 2 choices for each of the $n$ particles. Hence, there are a total of $2^n$ arrangements.
