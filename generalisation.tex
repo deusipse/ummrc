@@ -37,7 +37,7 @@ We were able to produce a generalisation of Problem 2:
     where $\varepsilon = \begin{cases} p^{k}, &k-m+1 = 0 \bmod m-n \\ 0, &k-m+1 \neq 0 \bmod m-n. \end{cases}$
   \end{claim}
   \begin{proof}
-    Recall that $\vartheta$ is the probability that there are $m-1$ consecutive X-particles at the end of the tube. In order to `count' the number of consecutive X-particles, there must be some end to the string of X-particles. This `end' can occur in two ways: either there is a Y-particle before last X-particle; or there are no Y-particles at all, and the tube compromises completely of X-particles.
+    Recall that $\vartheta$ is the probability that there are $m-1$ consecutive X-particles at the end of the tube. In order to `count' the number of consecutive X-particles, there must be some end to the string of X-particles. This `end' can occur in two ways: either there is a Y-particle before the last X-particle; or there are no Y-particles at all, and the tube compromises completely of X-particles.
     \begin{figure}[H]
       \vspace{-1.5em}
       \begin{align*}
@@ -46,7 +46,7 @@ We were able to produce a generalisation of Problem 2:
       \end{align*}
       \vspace{-2em}
     \end{figure}
-    Let us first consider the case with a Y-particle at the end (configuration A). The probability of such a configuration occuring is simply $(1-p)p^{m-1}$. However, this probability does not account for possible previous collapses. For example, the following sequence of particles may have been emitted which would lead to the same configuration:
+    Let us first consider the case with a Y-particle at the end (configuration A). The probability of such a configuration occurring is simply $(1-p)p^{m-1}$. However, this probability does not account for possible previous collapses. For example, the following sequence of particles may have been emitted which would lead to the same configuration:
     \begin{figure}[H]
       \vspace{-1.5em}
       \begin{equation*}
@@ -63,7 +63,7 @@ We were able to produce a generalisation of Problem 2:
     Thus the maximum value of $a$ is $\floor*{\dfrac{k-m}{m-n}},$ so the probability of configuration A is \[
       \sum_{a=0}^{\floor*{\frac{k-m}{m-n}}} (1-p)p^{a(m-n)+m-1}
     .\]
-    We now consider configuration B, which consists of X-particles only. Again, the configuration can be achieved with $a(m-n) + m-1$ consecutive X-particles, for some positive integer $a$. However, this time there cannot be any other particles other than these X-particles, meaning that  $k = a(m-n) + m-1$. It now becomes obvious that $k-m+1$ must be an integer multiple of $m-n$, at which point there is a single sequence of particles which results in $m-1$ consecutive X-particles. When $k-m+1$ is not an integer multiple of $m-n$, there is no possible way for configuration B to exist. Thus the probability of configuration B occuring can be expressed by $\varepsilon$, where \[
+    We now consider configuration B, which consists of X-particles only. Again, the configuration can be achieved with $a(m-n) + m-1$ consecutive X-particles, for some positive integer $a$. However, this time there cannot be any other particles other than these X-particles, meaning that  $k = a(m-n) + m-1$. It now becomes obvious that $k-m+1$ must be an integer multiple of $m-n$, at which point there is a single sequence of particles which results in $m-1$ consecutive X-particles. When $k-m+1$ is not an integer multiple of $m-n$, there is no possible way for configuration B to exist. Thus the probability of configuration B occurring can be expressed by $\varepsilon$, where \[
       \varepsilon = 
       \begin{cases}
         p^{k}, &k-m+1 = 0 \bmod m-n \\
@@ -142,7 +142,7 @@ Therefore the difference converges to a constant as the number of shots increase
 
 For example, let us calculate this limiting difference for $m = 4, n = 1, p = \frac{1}{2}$. Plugging in these values, we obtain $\frac{25}{28}$. By plotting the difference between terms, we see that the difference does indeed converge to this value (Figure~\ref{conv}).
 
-We can also plot the average number of particles as the number of shots increases, whilst varying $p$. Obviously, when $p = 0$, the line is simply linear. However, things get more interesting as $p$ gets very close to 1. A plot is shown in Figure~\ref{coolgraph}, in which the average number of particles can be seen oscillating when $p = 1$. This oscillation is caused by the constant emission of X-particles, which causes it to collase every $m-n$ shots. In addition, notice that $0 \le p \le 0.5$ produce very similar values.
+We can also plot the average number of particles as the number of shots increases, whilst varying $p$. Obviously, when $p = 0$, the line is simply linear. However, things get more interesting as $p$ gets very close to 1. A plot is shown in Figure~\ref{coolgraph}, in which the average number of particles can be seen oscillating when $p = 1$. This oscillation is caused by the constant emission of X-particles, which causes it to collapse every $m-n$ shots. In addition, notice that $0 \le p \le 0.5$ produce very similar values.
 \begin{figure}[H]
   \centering
   \begin{tikzpicture}

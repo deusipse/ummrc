@@ -8,7 +8,7 @@ Suppose that at each shot, an X-particle is emitted with probability $p \in (0, 
 \end{itemize}
 
 \begin{theorem}
-  Suppose the probability of emitting an X-partical is $p\in(0,1)$. The limiting ratio of X-particles in the tube, as the number of shots approaches infinity, is \[
+  Suppose the probability of emitting an X-particle is $p\in(0,1)$. The limiting ratio of X-particles in the tube, as the number of shots approaches infinity, is \[
   \frac{p}{1+p}
   .\]
 \end{theorem}
@@ -20,7 +20,7 @@ Suppose that at each shot, an X-particle is emitted with probability $p \in (0, 
     .\] 
   \end{claim}
   \begin{proof}
-    Again, let the average number of particles after $n$ shots be $T_n$. The number of particles \emph{doesn't} increase when the last particle is an X-particle and the particle emitted is also an X-particle, which has a probabilty of $p^2$ of occuring. Hence, the probability that the number of particles \emph{does} increase is $1-p^2$, meaning that the expected number of particles increases by $1-p^2$ after each shot, and thus we obtain \[
+    Again, let the average number of particles after $n$ shots be $T_n$. The number of particles \emph{doesn't} increase when the last particle is an X-particle and the particle emitted is also an X-particle, which has a probability of $p^2$ of occurring. Hence, the probability that the number of particles \emph{does} increase is $1-p^2$, meaning that the expected number of particles increases by $1-p^2$ after each shot, and thus we obtain \[
       T_{n+1} = T_{n} + (1-p^2)
     .\] Since $T_1 = 1$, the formula for $T_{n}$ is \[
       T_{n} = (1-p^2)n + p^2 \tag*{\qedhere}
