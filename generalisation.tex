@@ -85,7 +85,7 @@ It should be noted that $\vartheta$ is the sum of a geometric sequence, although
 \varepsilon = \sum_{a=0}^{(m-k-1) + \floor*{\frac{k-m+1}{m-n}}\cdot (m-n)} p^{k}
 .\] The upper bound is simply the negative remainder of $k-m+1$ when divided by  $m-n$, which is 0 if and only if $k-m+1$ is an integer multiple of $m-n$, and negative everywhere else. The lower bound, $a$ is 0 simply to make the sum 0 whenever the upper bound is negative, and is not used elsewhere.
 
-\subsection{Nice solution of general formula}
+\subsection{An interesting special case}
 The general formula for the average length in Equation~\ref{formula} is rather unwieldy. However, observe that many of the terms depend on $m-n$. If we set  $m-n = 1 \implies n = m - 1$, then the formula can be reduced dramatically:
 \begin{align}
   T_k &= m-1+\sum _{b=m-1}^{k-1} \left(1-p \left(\sum _{a=0}^{\floor*{\frac{b-m}{1}} } (1-p) p^{a (1)+m-1}+\varepsilon\right) (m-n)\right) \nonumber \\
