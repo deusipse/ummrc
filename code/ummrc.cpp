@@ -102,7 +102,7 @@ int main() {
          << '\n';
   }
   cout << "q3\n";
-  for (double p = 0; p <= 10; p++) {
+  for (double p = 1; p < 10; p++) {
     cout << "p = " << p / 10 << " proportion = " << proportion_x(runs, p / 10)
          << '\n';
   }

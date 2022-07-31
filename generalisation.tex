@@ -3,8 +3,8 @@
 We were able to produce a generalisation of Problem 2:
 \begin{itemize}
   \item Suppose that if $m$ X-particles are next to each other, they collapse into $n$ X-particles.
+  \item The probability of firing an X-particle is $p \in [0, 1]$.
   \item Assume that $k$ particles have been emitted.
-  \item The probability of firing an X-particle is $p$.
   \item Find the average number of particles.
   \item It is assumed that $m > n \ge 1$, otherwise the number of particles would simply blow up infinitely.
 \end{itemize}
@@ -14,7 +14,7 @@ We were able to produce a generalisation of Problem 2:
   \begin{equation}
     m-1+\sum _{b=m-1}^{k-1} \left(1-p \left(\sum _{a=0}^{\floor*{\frac{b-m}{m-n}} } (1-p) p^{a (m-n)+m-1}+\varepsilon\right) (m-n)\right) \label{formula}
   \end{equation}
-  when $k \ge m$ and $\varepsilon = \begin{cases} p^{b}, &b-m+1 = 0 \bmod m-n \\ 0, &b-m+1 \neq 0 \bmod m-n. \end{cases}$
+  when $k \ge m$ and $\varepsilon = \begin{cases} p^{b}, &b-m+1 \equiv 0 \bmod m-n \\ 0, &b-m+1 \not\equiv 0 \bmod m-n. \end{cases}$
 \end{theorem}
 \begin{proof}
   Let the average number of particles after $k$ shots be denoted by $T_k$. It is obvious that $T_k = k$ when $k < m$, as it is impossible for any particles to have collapsed. Thus we must proceed to find a formula for $T_k$ when $k \ge m$. We can achieve this by establishing a recurrence for $T_k$ in order to find the difference between each term, and from there we may simply sum the difference to obtain the required formula. 
@@ -34,7 +34,7 @@ We were able to produce a generalisation of Problem 2:
     \begin{equation*}
       \vartheta = \sum_{a=0}^{\floor*{\frac{k-m}{m-n}}} (1-p)p^{a(m-n)+m-1} + \varepsilon,
     \end{equation*}
-    where $\varepsilon = \begin{cases} p^{k}, &k-m+1 = 0 \bmod m-n \\ 0, &k-m+1 \neq 0 \bmod m-n. \end{cases}$
+    where $\varepsilon = \begin{cases} p^{k}, &k-m+1 \equiv 0 \bmod m-n \\ 0, &k-m+1 \not\equiv 0 \bmod m-n. \end{cases}$
   \end{claim}
   \begin{proof}
     Recall that $\vartheta$ is the probability that there are $m-1$ consecutive X-particles at the end of the tube. In order to `count' the number of consecutive X-particles, there must be some end to the string of X-particles. This `end' can occur in two ways: either there is a Y-particle before the last X-particle; or there are no Y-particles at all, and the tube compromises completely of X-particles.
@@ -66,8 +66,8 @@ We were able to produce a generalisation of Problem 2:
     We now consider configuration B, which consists of X-particles only. Again, the configuration can be achieved with $a(m-n) + m-1$ consecutive X-particles, for some positive integer $a$. However, this time there cannot be any other particles other than these X-particles, meaning that  $k = a(m-n) + m-1$. It now becomes obvious that $k-m+1$ must be an integer multiple of $m-n$, at which point there is a single sequence of particles which results in $m-1$ consecutive X-particles. When $k-m+1$ is not an integer multiple of $m-n$, there is no possible way for configuration B to exist. Thus the probability of configuration B occurring can be expressed by $\varepsilon$, where \[
       \varepsilon = 
       \begin{cases}
-        p^{k}, &k-m+1 = 0 \bmod m-n \\
-        0, &k-m+1 \neq 0 \bmod m-n.
+        p^{k}, &k-m+1 \equiv 0 \bmod m-n \\
+        0, &k-m+1 \not\equiv 0 \bmod m-n.
       \end{cases}
     \] We then add the probabilities of configurations A and B to get the overall probability of the tube ending in $m-1$ consecutive X-particles, which is  \[
     \vartheta = \sum_{a=0}^{\floor*{\frac{k-m}{m-n}}} (1-p)p^{a(m-n)+m-1} + \varepsilon
@@ -75,7 +75,7 @@ We were able to produce a generalisation of Problem 2:
   \end{proof}
   Since we have previously determined a recursive formula for $T_k$ in terms of $\vartheta$ and $\varepsilon$ in Equation~\ref{eq:1}, we can simply sum the difference between each term to obtain a closed expression for the value of any term. We have \[
     T_{k+1} = T_k + 1 - p\vartheta(m-n)
-  ,\] meaning the difference between terms is $1-p\vartheta(m-n)$. We then add $m-1$ to the sum of this difference from $m-1$ to $k$ (since the formula is only required for $k \ge m$). This yields \[
+  ,\] meaning the difference between terms is $1-p\vartheta(m-n)$. We then add $m-1$ to the sum of this difference from $m-1$ to $k-1$ (since the formula is only required for $k \ge m$). This yields \[
     T_k = m-1+\sum _{b=m-1}^{k-1} \left(1-p \left(\sum _{a=0}^{\floor*{\frac{b-m}{m-n}} } (1-p) p^{a (m-n)+m-1}+\varepsilon\right) (m-n)\right)
   . \tag*{\qedhere}\] 
 \end{proof}
@@ -91,7 +91,7 @@ The general formula for the average length in Equation~\ref{formula} is rather u
   T_k &= m-1+\sum _{b=m-1}^{k-1} \left(1-p \left(\sum _{a=0}^{\floor*{\frac{b-m}{1}} } (1-p) p^{a (1)+m-1}+\varepsilon\right) (m-n)\right) \nonumber \\
       &= m-1+\sum _{b=m-1}^{k-1} \left(1-p \left(\sum _{a=0}^{b-m} (1-p) p^{a+m-1}+ p^{b} \right) \right) \label{eq:3}
 \end{align}
-Notice that even $\varepsilon = p^{b}$ becomes constant, as $z = 0 \bmod 1$ for any integer  $z$. Let us now evaluate $\vartheta$, which is the sum of a geometric sequence:
+Notice that even $\varepsilon = p^{b}$ becomes constant, as $z \equiv 0 \bmod 1$ for any integer  $z$. Let us now evaluate $\vartheta$, which is the sum of a geometric sequence:
 \begin{align*}
   \vartheta &= \sum_{a=0}^{k-m} (1-p)p^{a+m-1} + p^k \\
             &= \sum_{a=0}^{k-m} (1-p)\bigl(p^{m-1}\bigr)p^{a} + p^k \\
@@ -123,10 +123,10 @@ We now consider the difference between the terms, as the number of shots, $k$, t
 \] and \[
   \varepsilon = 
   \begin{cases}
-    p^{k}, &k-m+1 = 0 \bmod m-n \\
-    0, &k-m+1 \neq 0 \bmod m-n.
+    p^{k}, &k-m+1 \equiv 0 \bmod m-n \\
+    0, &k-m+1 \not\equiv 0 \bmod m-n.
   \end{cases}
-\] As $k$ increases, $\varepsilon$ tends towards 0 since its only non-zero value is $p^{k}$. In addition, $\floor*{\frac{k-m}{m-n}}$ tends towards infinity. We hence have the limit as $k$ approaches infinity of \[
+\] As $k$ increases, $\varepsilon$ tends towards 0 since its only non-zero value is $p^{k}$ and $p < 1$. In addition, $\floor*{\frac{k-m}{m-n}}$ tends towards infinity. We hence have the limit as $k$ approaches infinity of \[
   \vartheta = \sum_{a=0}^{\infty} (1-p)p^{a(m-n)+m-1}
 .\] Evaluating this geometric series yields
 \begin{align*}
@@ -146,7 +146,7 @@ We can also plot the average number of particles as the number of shots increase
 \begin{figure}[H]
   \centering
   \begin{tikzpicture}
-    \begin{axis}[width = 0.8*\textwidth, title = {$T_{k+1} - T_{k}$ vs $k$, $m = 4, n = 1, p = \frac{1}{2}$}, legend pos = south east, xlabel = $k$]
+    \begin{axis}[width = 0.75*\textwidth, title = {$T_{k+1} - T_{k}$ vs $k$, $m = 4, n = 1, p = \frac{1}{2}$}, legend pos = south east, xlabel = $k$]
       \addplot[red] table[x=k, y=diff] {data.dat};
       \addplot[domain = 3:20, dashed] {25/28};
       \legend{$T_{k+1} - T_{k}$, $\frac{25}{28}$};
@@ -172,6 +172,6 @@ We can also plot the average number of particles as the number of shots increase
       \addplot[red!100!green] table[x=k, y=1] {data2.dat};
     \end{axis}
   \end{tikzpicture}
-  \caption{Pure green corresponds to $p = 0$, pure red corresponds to $p = 1$}
+  \caption{Pure green corresponds to $p = 0$, pure red corresponds to $p = 1$, increments of $0.1$}
   \label{coolgraph}
 \end{figure}
