@@ -145,13 +145,14 @@ We can also plot the average number of particles as the number of shots increase
 \subsection{Ideas for Further Investigation}
 There is still much left to be explored. Some further ideas include, but are not limited to:
 \begin{itemize}
+  \item What if both X and Y can collapse?
   \item What happens if there is a third particle, Z, that also collapses?
   \item What if there are $q$ different types of particles,  $r$ of which collapse?
 \end{itemize}
 \begin{figure}[H]
   \centering
   \begin{tikzpicture}
-    \begin{axis}[height = 6cm, width = 0.75*\textwidth, title = {$T_{k+1} - T_{k}$ vs $k$, $m = 4, n = 1, p = \frac{1}{2}$}, legend pos = south east, xlabel = {Number of shots, $k$}]
+    \begin{axis}[height = 5.5cm, width = 0.75*\textwidth, title = {$T_{k+1} - T_{k}$ vs $k$, $m = 4, n = 1, p = \frac{1}{2}$}, legend pos = south east, xlabel = {Number of shots, $k$}]
       \addplot[red] table[x=k, y=diff] {data.dat};
       \addplot[domain = 3:20, dashed] {25/28};
       \legend{$T_{k+1} - T_{k}$, $\frac{25}{28}$};
